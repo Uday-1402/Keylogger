@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keylogger</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: red;
+        height: 97.8vh;
+        width: 99vw;
+      }
+      .control-btns,
+      .logged-event {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: yellow;
+        padding: 4px;
+        margin: 10px;
+      }
+      .control-btns > div,
+      .logged-event > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 15vh;
+        width: 30vw;
+        background-color: lightblue;
+        margin: 10px;
+      }
+      .control-btns>div{
+        cursor: pointer;
+      }
+      .control-btns>div:hover{
+        height:16vh;
+        width:31vw;
+      }
+      p{
+        font-style: normal;
+        font-weight: bolder;
+        font-size: larger;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="control-btns">
+        <div class="start-btn"><p>Start Logging</p></div>
+        <div class="stop-btn"><p>Stop Logging</p></div>
+      </div>
+      <div class="logged-event">
+        <div class="key-name"></div>
+        <div class="key-state"></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const startBtn = document.getElementsByClassName("start-btn");
+    const stopBtn = document.getElementsByClassName("stop-btn");
+
+    let keyName = document.getElementsByClassName("key-name");
+    let keyState = document.getElementsByClassName("key-state");
+
+    startBtn[0].addEventListener("click", () => {
+      startLogging();
+    });
+
+    stopBtn[0].addEventListener("click", () => {
+      stopLogging();
+    });
+
+    function startLogging() {
+      document.addEventListener("keydown", (event) => {
+        keyName[0].innerHTML = `<p>Key pressed: ${event.key}</p>`;
+        keyState[0].innerHTML = "<p>Key is down.</p>";
+      });
+      document.addEventListener("keyup", (event) => {
+        keyName[0].innerHTML = `<p>Key ${event.key} is released</p>`;
+        keyState[0].innerHTML = "<p>Key is up.</p>";
+      });
+    }
+    function stopLogging() {
+      document.removeEventListener("keydown", (event) => {
+        keyName[0].innerHTML = `<p>Key pressed: ${event.key}</p>`;
+        keyState[0].innerHTML = "<p>Key is down.</p>";
+      });
+      document.removeEventListener("keyup", (event) => {
+        keyName[0].innerHTML = `<p>Key ${event.key} is released</p>`;
+        keyState[0].innerHTML = "<p>Key is up.</p>";
+      });
+      keyName[0].innerHTML = `<p></p>`;
+      keyState[0].innerHTML = `<p></p>`;
+    }
+  </script>
+</html>
